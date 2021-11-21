@@ -5,6 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.time.ZonedDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +18,17 @@ class EventWrapperTest {
   private ObjectMapper objectMapper;
   private EventWrapper<BusinessData> eventWrapper;
   private BusinessData businessData;
+  private ZonedDateTime eventTime;
 
   @BeforeEach
   void setUp() {
-    objectMapper = new ObjectMapper();
-    eventWrapper = new EventWrapper(EVENT_ID, EVENT_TYPE, null);
+    objectMapper = new ObjectMapper()
+        .registerModule(new JavaTimeModule())
+        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    ;
+    // "yyyy-MM-dd'T'HH:mm:ss[.SSS[SSS]]XXX"
+    eventTime = ZonedDateTime.parse("2021-11-21T10:15:01.123Z");
+    eventWrapper = new EventWrapper(EVENT_ID, EVENT_TYPE, eventTime, null);
     businessData = new BusinessData("firstValue", "secondValue");
   }
 
@@ -30,7 +39,7 @@ class EventWrapperTest {
     String value = objectMapper.writeValueAsString(eventWrapper);
     // then a valid json string is provided
     assertThat(value).isEqualTo(
-        "{\"event-id\":\"12345-67890\",\"event-type\":\"context.TYPE\",\"data\":null}");
+        "{\"event-id\":\"12345-67890\",\"event-type\":\"context.TYPE\",\"event-time\":\"2021-11-21T10:15:01.123123Z\",\"data\":null}");
   }
 
   @Test
@@ -41,7 +50,8 @@ class EventWrapperTest {
     String value = objectMapper.writeValueAsString(secondWrapper);
     // then: the extra data object is also transformed to json
     assertThat(value).isEqualTo(
-        "{\"event-id\":\"12345-67890\",\"event-type\":\"context.TYPE\",\"data\":{\"first-value\":\"firstValue\",\"second-value\":\"secondValue\"}}");
+        """
+            {"event-id":"12345-67890","event-type":"context.TYPE","event-time":"2021-11-21T10:15:01.123123Z","data":{"first-value":"firstValue","second-value":"secondValue"}}""");
   }
 
   @Test
