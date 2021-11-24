@@ -9,8 +9,8 @@ public class EventWrapperTestData {
 
   public EventWrapper<BusinessData> eventWrapperWithoutData() {
     final OffsetDateTime eventTime = OffsetDateTime.now();
-    return new EventWrapper<>(EVENT_ID, EVENT_TYPE,
-//        eventTime,
+    return new EventWrapper<BusinessData>(EVENT_ID, EVENT_TYPE,
+        eventTime,
         null);
   }
 }

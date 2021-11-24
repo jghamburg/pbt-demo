@@ -2,7 +2,10 @@ package org.jg.pbtdemo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -15,11 +18,16 @@ import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
 import net.jqwik.api.statistics.Histogram;
 import net.jqwik.api.statistics.StatisticsReport;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 class EventWrapperPbTest {
 
-  private ObjectMapper objectMapper = new ObjectMapper();
-
+  private ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
+      .json()
+      .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+      .modules(new JavaTimeModule())
+      .build();
+  ;
 
   @Property
   //@Report(Reporting.GENERATED)
@@ -50,13 +58,13 @@ class EventWrapperPbTest {
     Arbitrary<String> eventId = Arbitraries.strings();
     Arbitrary<String> eventType = Arbitraries.strings()
         .alpha().ofMaxLength(20);
-    final Arbitrary<ZonedDateTime> eventTime = Arbitraries
+    final Arbitrary<OffsetDateTime> eventTime = Arbitraries
         .of(List.copyOf(ZoneId.getAvailableZoneIds()))
         .flatMap(zone -> Arbitraries
             .longs()
             .between(1266258398000L, 1897410427000L) // ~ +/- 10 years
             .map(epochMilli -> Instant.ofEpochMilli(epochMilli))
-            .map(instant -> ZonedDateTime.from(instant.atZone(ZoneId.of(zone)))));
+            .map(instant -> OffsetDateTime.from(instant.atZone(ZoneId.of(zone)))));
 
     return Combinators.combine(eventId, eventType, eventTime, validBusinessData())
         .as(EventWrapper::new);

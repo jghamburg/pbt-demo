@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 import lombok.Value;
 import lombok.With;
 
@@ -24,15 +24,14 @@ public class EventWrapper<T> {
   private final String eventType;
   // 2020-09-22T11:47:22.634+0000
   @JsonProperty(EVENT_TIME_NAME)
-  @JsonDeserializer(using = Utc8601ZonedDateTimeDeserializer.class)
-  private ZonedDateTime eventTime;
+  private OffsetDateTime eventTime;
   @JsonProperty(DATA_NAME)
   private final T data;
 
   @JsonCreator
   public EventWrapper(@JsonProperty(EVENT_ID_NAME) String eventId,
       @JsonProperty(EVENT_TYPE_NAME) String eventType,
-      @JsonProperty(EVENT_TIME_NAME) ZonedDateTime eventTime,
+      @JsonProperty(EVENT_TIME_NAME) OffsetDateTime eventTime,
       @JsonProperty(DATA_NAME) T data) {
     this.eventId = eventId;
     this.eventType = eventType;

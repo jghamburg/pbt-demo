@@ -14,7 +14,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 class MyDateTest {
 
-  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss[.SSS]XXX");
+  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSSXXX");
 
   @Test
   void verifyDateTimeToJson() throws JsonProcessingException {
