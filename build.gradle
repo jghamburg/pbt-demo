@@ -5,6 +5,9 @@ plugins {
 }
 ext {
     jqwikVersion = '1.6.0'
+    jacksonDatatypeVersion = '2.13.0'
+    apacheCommanLang3Version = '3.12.0'
+    springDataMongoVersion = '2.6.0'
 }
 
 group = 'org.jg'
@@ -26,7 +29,9 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:${springDataMongoVersion}"
+    implementation "org.apache.commons:commons-lang3:${apacheCommanLang3Version}"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeVersion}"
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'

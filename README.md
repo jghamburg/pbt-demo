@@ -39,8 +39,7 @@ community.
 * [Property-based Testing in Java: Introduction - My Not So Private Tech Life](https://blog.johanneslink.net/2018/03/24/property-based-testing-in-java-introduction/?source=:em:nw:mt::::RC_WWMK200429P00043C0046:NSL400200167)
 * [johanneslink](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties/)
 * [johanneslink 2](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties/#pattern-business-rule-as-property)
-* [jqwik](https://jqwik.net/docs/current/user-guide.html#jqwik-configuration)
-* [oracle](https://blogs.oracle.com/javamagazine/post/know-for-sure-with-property-based-testing)
+* [jqwik configuration detils](https://jqwik.net/docs/current/user-guide.html#jqwik-configuration)
 * [Property-based Testing Patterns](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html)
 * [Know for Sure with Property-Based Testing](https://blogs.oracle.com/javamagazine/post/know-for-sure-with-property-based-testing?source=:em:nw:mt::::RC_WWMK200429P00043C0046:NSL400200167&elq_mid=208248&sh=1712092020221515182213312809073514&cmid=WWMK200429P00043C0046)
 * [jlink/jqwik-spring: jqwik extension to support testing of Spring and Spring-Boot applications](https://github.com/jlink/jqwik-spring)
@@ -61,6 +60,10 @@ Examples based on json date conversion requirements - this article actually trig
 this project.
 
 * [blogspot](https://aredko.blogspot.com/2020/02/)
+* [Differences Between ZonedDateTime and OffsetDateTime | Baeldung](https://www.baeldung.com/java-zoneddatetime-offsetdatetime)
+  Recommendation: Use OffsetDateTime for database use.
 * [Jackson , java.time , ISO 8601 , serialize without milliseconds | Newbedev](https://newbedev.com/jackson-java-time-iso-8601-serialize-without-milliseconds)
+* [Jackson JSON - Using @JsonSerialize and @JsonDeserialize with Converter for custom conversion](https://www.logicbig.com/tutorials/misc/jackson/json-serialize-deserialize-converter.html)
+* [JSON deserialize generic types using Gson and Jackson | JSBlogs](https://blogs.jsbisht.com/blogs/2016/09/07/json-deserialize-generic-types-using-gson-and-jackson)
 * 
 
