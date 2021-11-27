@@ -7,7 +7,7 @@ import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
 
-public class PersionPbTest {
+public class PersonPbTest {
 
   @Property
   boolean anyValidPersonHasAFullName(@ForAll("validPerson") Person aPerson) {

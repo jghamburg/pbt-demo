@@ -5,13 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.text.DateFormat;
 import java.time.OffsetDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 class EventWrapperTest {
 
@@ -25,11 +21,7 @@ class EventWrapperTest {
   @BeforeEach
   void setUp() {
 
-    mapper = Jackson2ObjectMapperBuilder
-        .json()
-        .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-        .modules(new JavaTimeModule())
-        .build();
+    mapper = MyObjectMapperFactory.get();
     ;
     // "yyyy-MM-dd'T'HH:mm:ss[.SSS[SSS]]XXX"
     eventTime = OffsetDateTime.parse("2021-11-21T10:15:01.123Z");
