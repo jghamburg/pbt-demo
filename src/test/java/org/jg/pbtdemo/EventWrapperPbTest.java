@@ -1,5 +1,7 @@
 package org.jg.pbtdemo;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
@@ -26,11 +28,14 @@ class EventWrapperPbTest {
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
   @Label("json export of BusinessData will never exeed 255 chars.")
-  boolean anyValidBusinessDataJsonIsSmallerThan20(
+  void anyValidBusinessDataJsonIsSmallerThan20(
       @ForAll("validBusinessData") BusinessData businessData)
       throws JsonProcessingException {
     String value = objectMapper.writeValueAsString(businessData);
-    return value.length() <= 255;
+    assertThat(value)
+        .isNotEmpty()
+        .isNotBlank()
+        .hasSizeLessThan(255);
   }
 
   @Property

@@ -6,14 +6,13 @@ import java.time.OffsetDateTime;
 import lombok.Value;
 
 @Value
-public class MyDate {
+public class MyOffsetDateTime {
 
   @JsonProperty("offset-time")
   private final OffsetDateTime offset;
 
   @JsonCreator
-  public MyDate(@JsonProperty("offset-time") OffsetDateTime dateTime) {
+  public MyOffsetDateTime(@JsonProperty("offset-time") OffsetDateTime dateTime) {
     this.offset = dateTime;
   }
-
 }
