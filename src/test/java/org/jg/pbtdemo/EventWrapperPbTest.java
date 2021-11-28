@@ -66,7 +66,7 @@ class EventWrapperPbTest {
   Arbitrary<EventWrapper<BusinessData>> validEventWrapper() {
     Arbitrary<String> eventId = Arbitraries.strings().ofMaxLength(40);
     Arbitrary<String> eventType = Arbitraries.strings()
-        .alpha().ofMaxLength(20);
+        .alpha();
     final Arbitrary<OffsetDateTime> eventTime = Arbitraries
         .of(List.copyOf(ZoneId.getAvailableZoneIds()))
         .flatMap(zone -> Arbitraries

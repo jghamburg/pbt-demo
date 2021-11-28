@@ -12,7 +12,7 @@ import lombok.With;
 
 @Value
 @With
-public class EventWrapper<T> implements Comparable<EventWrapper<T>>{
+public class EventWrapper<T> {
 
   public static final String EVENT_ID_NAME = "event-id";
   public static final String EVENT_TYPE_NAME = "event-type";
@@ -39,8 +39,4 @@ public class EventWrapper<T> implements Comparable<EventWrapper<T>>{
     this.data = data;
   }
 
-  @Override
-  public int compareTo(EventWrapper<T> wrapper){
-    return this.eventTime.toInstant().compareTo(wrapper.getEventTime().toInstant());
-  }
 }
