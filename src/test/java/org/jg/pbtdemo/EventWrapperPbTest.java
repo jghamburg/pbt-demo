@@ -27,7 +27,7 @@ class EventWrapperPbTest {
   @Property
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
-  @Label("json export of BusinessData will never exeed 255 chars.")
+  @Label("json export of BusinessData will never exceeds 255 chars.")
   void anyValidBusinessDataJsonIsSmallerThan20(
       @ForAll("validBusinessData") BusinessData businessData)
       throws JsonProcessingException {

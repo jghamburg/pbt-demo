@@ -37,7 +37,9 @@ has a common wrapper for all of my business events.
 
 The JUnit approach first.
 
-* present EventWrapperTest and EventWrapper
+* present EventWrapperTest and EventWrapper -> looks fine to me
+
+Now lets start to look into PBT.
 
 looks good to me. Even the size restriction of the basic json is verified.
 
