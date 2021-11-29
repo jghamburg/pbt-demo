@@ -15,7 +15,7 @@ The basic idea:
 
 As I first ask about experiences on pbt in my company I found out that it is still not widely known in the Java community.
 
-The first steps of PBT were taken at the beginning of this milenium and was presented by a paper of Coen Claessen and John Hughes. 
+The first steps of PBT were taken at the beginning of this milenium and were presented by a paper of Coen Claessen and John Hughes. 
 And on the other hand I heard things like:
 
 * "I already use specification by example. So why jet another framefork to learn?"
@@ -35,16 +35,15 @@ But why yet another testing framework?
 For all the examples I use jqwik provided by Johannes Link, who is well known in the java testing community.
 
 * [How to Specify it! In Java! | How to Specify It! In Java!](https://johanneslink.net/how-to-specify-it/)
-* [Property-based Testing in Java: Introduction - My Not So Private Tech Life](https://blog.johanneslink.net/2018/03/24/property-based-testing-in-java-introduction/?source=:em:nw:mt::::RC_WWMK200429P00043C0046:NSL400200167)
-* [johanneslink](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties/)
-* [johanneslink 2](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties/#pattern-business-rule-as-property)
+* [Property-based Testing in Java: Introduction - My Not So Private Tech Life](https://blog.johanneslink.net/2018/03/24/property-based-testing-in-java-introduction)
+* [Know for Sure with Property-Based Testing](https://blogs.oracle.com/javamagazine/post/know-for-sure-with-property-based-testing)
+* [Intro to PBT with F#](https://fsharpforfunandprofit.com/posts/property-based-testing/)
+
 * [jqwik Users Guide](https://jqwik.net/docs/current/user-guide.html)
-* [Property-based Testing Patterns](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html)
-* [Know for Sure with Property-Based Testing](https://blogs.oracle.com/javamagazine/post/know-for-sure-with-property-based-testing?source=:em:nw:mt::::RC_WWMK200429P00043C0046:NSL400200167&elq_mid=208248&sh=1712092020221515182213312809073514&cmid=WWMK200429P00043C0046)
 * [jlink/jqwik-spring: jqwik extension to support testing of Spring and Spring-Boot applications](https://github.com/jlink/jqwik-spring)
   -> spring boot support: (example):
 * [jqwik-samples/jqwik-spring-boot-gradle at main · jlink/jqwik-samples](https://github.com/jlink/jqwik-samples/tree/main/jqwik-spring-boot-gradle)
-* [johanneslink 3](https://johanneslink.net/downloads/pbt-workshop-english.pdf)
+* [PBT Workshop Handout by Johannes Link](https://johanneslink.net/downloads/pbt-workshop-english.pdf)
 
 Interesting series about testing:
 
@@ -66,7 +65,7 @@ this project.
 * [Jackson , java.time , ISO 8601 , serialize without milliseconds | Newbedev](https://newbedev.com/jackson-java-time-iso-8601-serialize-without-milliseconds)
 * [Jackson JSON - Using @JsonSerialize and @JsonDeserialize with Converter for custom conversion](https://www.logicbig.com/tutorials/misc/jackson/json-serialize-deserialize-converter.html)
 * [JSON deserialize generic types using Gson and Jackson | JSBlogs](https://blogs.jsbisht.com/blogs/2016/09/07/json-deserialize-generic-types-using-gson-and-jackson)
-* [Step by Step to Property based Testing - Dave Nicolette 2018](https://www.leadingagile.com/2018/04/step-by-step-toward-property-based-testing/)
+* [Step by Step to Property based Testing - Dave Nicolette 2018](https://www.leadingagile.com/2018/04/step-by-step-toward-property-based-testing/) - a good introduction
 * 
 
 ## Ideas and Citations
@@ -107,12 +106,12 @@ One answer to this:
 Think outside of the box. Find ways to question your system under test to get a deeper insight of the functioning of the system.  
 On the other hand exploring new areas might lead to new ways of progressing in problem solving. You extend your repertoire/portfolio of tools to use for solving different kind of problems/challenges.  
 
-	If the only tool you have at hand every problem is a nail. 
+	If the only tool you have at hand is a hammer every problem is a nail. 
 		Unknown - at least to me
 
 * Where it comes in handy  
 
-The process of shrinking is used in case a theory fails with errors that contradict the property assumptions made. Shrinking now tries to find the simplest example to reproduce the error. And this can ease up debugging and fixing the error a lot easier especially if the data structures are quite elaborate.  
+Like in a lot of other disciplines PBT shines when   finding counter examples that reject the assertion of a property.  PBT introduces the concept of shrinking tries to find the simplest example to reproduce the error. And this can ease up debugging and fixing the error a lot easier especially if the data structures are quite elaborate.  
 
 This could be a sorting algorithm for a specific data structure at hand. And with PBT you might be able to find counter examples that break the validity of this algorithm. - Might - It's not like in free beer but it comes with the cost of experimenting and exploring a lot to get a good notion what is possible and what not and when to use it.
 
@@ -124,7 +123,7 @@ Basically the easiest way is just to start with example based tests as you alrea
 ## My Tool of Choice  
 
 I selected the famework jqwik maintained by Johannes Link.  
-In contrast to the older and more widely used framework JUnit-quickcheck jqwik is integrated into the JUnit5 platform concept and was implemented as test engine. In my opinion this is a more future prove approach.
+In contrast to the older and more widely used framework JUnit-quickcheck jqwik is integrated into the JUnit5 platform concept and is implemented as test engine. In my opinion this is a more future prove approach.
 
 [JUnit QuickCheck](https://github.com/pholser/junit-quickcheck)
 
@@ -132,6 +131,11 @@ In contrast to the older and more widely used framework JUnit-quickcheck jqwik i
 
 There are some patterns that come in handy if you are not sure if your problem is a nail.  
 So I curated three of these patterns just as an appetizer.  
+
+
+
+* [Patterns to Identify Properties](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties)
+* [Property-based Testing Patterns](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html) - great summary of usage patterns where PBT will shine.
 
 ## Other interesting Possibilities  
 
