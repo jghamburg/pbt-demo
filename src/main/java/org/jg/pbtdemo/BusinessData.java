@@ -7,8 +7,8 @@ import lombok.Value;
 @Value
 public class BusinessData {
 
-  public static final String FIRST_VALUE_NAME = "first-value";
-  public static final String SECOND_VALUE_NAME = "second-value";
+  static final String FIRST_VALUE_NAME = "first-value";
+  static final String SECOND_VALUE_NAME = "second-value";
   @JsonProperty(FIRST_VALUE_NAME)
   private final String firstValue;
   @JsonProperty(SECOND_VALUE_NAME)
