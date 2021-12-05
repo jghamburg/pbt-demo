@@ -14,11 +14,10 @@ The basic idea:
 2. And verify this behavior with generated tests like in the 100 or 1.000 instead of at most ten
    examples like I used to do in the past.
 
-As I first asked about experiences on PBT in my company I found that it is still not widely known in
-the Java community. Even if the first appearance took place in 2000 in a paper by
+As I first asked about experiences on PBT in my company I found that it is still not widely known in the Java community.  
 
-The first steps of PBT were taken at the beginning of this milenium and was presented by a paper of
-Coen Claessen and John Hughes. And on the other hand I heard things like:
+The first steps of PBT were taken at the beginning of this milenium and were presented by a paper of
+Coen Claessen and John Hughes using Haskell. And on the other hand I heard things like:
 
 * "I already use specification by example. So why jet another framefork to learn?"
 * "What is the benefit of this? - I already have a very high test coverage."
@@ -44,8 +43,48 @@ Now lets start to look into PBT.
 looks good to me. Even the size restriction of the basic json is verified.
 
 - I know some will now shout out something like I know better!
-  And there is always something to improve and things to improve. But bare with me for a moment
-  longe
+  And there is always something to improve and things to improve. But bare with me for a moment longer.
+
+## Patterns that are designated for PBT
+
+There are some patterns that come in handy if you are not sure if your problem is a nail.  
+So I curated three of these patterns just as an appetizer.  
+
+### Fuzzying  
+
+Code should always be written that it will behave nicely. It should not spit into your face only because unexpected data examples are feed into your services under test. As a few examples you could check for:  
+
+* No exceptions occur, at least no unexpected ones - wrong data is identified on entering the service udner test.
+* No 5xx return codes in http requests, maybe you even require 2xx all the time
+* All return values are valid 
+
+### Inverse Functions  
+
+There are a lot of functions that have a reverse. E.g. encode/decode JSON. So basically for all inputs 
+
+```java
+ForAll x: encode(decode(x)) == x  
+```
+
+### Test Oracle  
+
+On the other hand there are a lot of functions and algorithms where you want to optimize our e.g. old one to improve speed. So you have to verify that 
+
+```java
+ForAll x: old(x) == new(x)
+```
+
+This kind of verification is called test oracle.  
+There are a few sources where the alternatives can come from:  
+
+* Simple and slow versus complicated but fast
+* Self-made versus commercial
+* Old (pre-refactoring) versus new (post-refactoring)
+
+### Resources for Deeper insight  
+
+* [Patterns to Identify Properties](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties)
+* [Property-based Testing Patterns](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html) - great summary of usage patterns where PBT will shine.
 
 ## Lessons Learned
 
@@ -75,9 +114,6 @@ __Articles about PBT and usage__:
   -> spring boot support: (example):
 * [jqwik-samples/jqwik-spring-boot-gradle at main · jlink/jqwik-samples](https://github.com/jlink/jqwik-samples/tree/main/jqwik-spring-boot-gradle)
 <* [PBT Workshop Handout by Johannes Link](https://johanneslink.net/downloads/pbt-workshop-english.pdf)
->>>>>>>+main
-======
->>>>>>> origin/main
 
 Interesting series about testing:
 
@@ -99,16 +135,8 @@ this project.
 * [Jackson , java.time , ISO 8601 , serialize without milliseconds | Newbedev](https://newbedev.com/jackson-java-time-iso-8601-serialize-without-milliseconds)
 * [Jackson JSON - Using @JsonSerialize and @JsonDeserialize with Converter for custom conversion](https://www.logicbig.com/tutorials/misc/jackson/json-serialize-deserialize-converter.html)
 * [JSON deserialize generic types using Gson and Jackson | JSBlogs](https://blogs.jsbisht.com/blogs/2016/09/07/json-deserialize-generic-types-using-gson-and-jackson)
-<* [Step by Step to Property based Testing - Dave Nicolette 2018](https://www.leadingagile.com/2018/04/step-by-step-toward-property-based-testing/) - a good introduction
-* 
->>>>>>>+main
-======
-** [Step by Step to Property based Testing - Dave Nicolette 2018](https://www.leadingagile.com/2018/04/step-by-step-toward-property-based-testing/)
-*
->>>>>>>-origin/main
-## The Story Line
-
-Here I will discribe the emerging structure of my article.
+* [Step by Step to Property based Testing - Dave Nicolette 2018](https://www.leadingagile.com/2018/04/step-by-step-toward-property-based-testing/) - a good introduction
+* ... 
 
 ## Ideas and Citations
 
@@ -131,13 +159,10 @@ Like in a lot of other disciplines PBT shines when   finding counter examples th
 Most of the time in live it is not about the easy parts but about challenges and errors.  
 The process of shrinking is used in case a theory fails with errors that contradict the property
 assumptions made. Shrinking now tries to find the simplest example within the data domain to
-reproduce the error. And this can ease up debugging and fixing the error a lot especially if the
-data structures are quite elaborate.
+reproduce the error. And this can ease up debugging and fixing the error a lot especially if the data structures are quite elaborate.
 
 There could be a sorting algorithm for a specific data structure at hand. And with PBT you might be
-able to find counter examples that break the validity of this algorithm. - Might - It's not like
-free in "free beer" but it comes with the cost of experimenting and exploring a lot to get a good
-notion what is possible and what not and when to use it.
+able to find counter examples that break the validity of this algorithm. - Might - It's not like free in "free beer" but it comes with the cost of experimenting and exploring a lot to get a good notion what is possible and what not and when to use it.
 
 ## Generation of Test Data
 
@@ -152,24 +177,13 @@ In contrast to the older and more widely used framework JUnit-quickcheck jqwik i
 
 [JUnit QuickCheck](https://github.com/pholser/junit-quickcheck)
 
-## Patterns that are designated for PBT
-
-There are some patterns that come in handy if you are not sure if your problem is a nail.  
-So I curated three of these patterns just as an appetizer.
-
-## Other interesting Possibilities
-
-
-
-* [Patterns to Identify Properties](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties)
-* [Property-based Testing Patterns](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html) - great summary of usage patterns where PBT will shine.
 
 ## Other interesting Possibilities  
+
 It does not need always to be the most complicated or sophisticated tool. Most of the time there are
 easier to use solutions. So look into e.g. Data Driven Testing. Myself I developed and maintained
 this kind of tool from 2004-2011 [DDTUnit - Sourceforge](https://sourceforge.net/projects/ddtunit/).
-With this kind of tooling you can setup parametrized tests with a multitude of examples to
-process/test.  
+With this kind of tooling you can setup parametrized tests with a multitude of examples to process/test.  
 One of my favorites today is Spock testing framework that provides a nice table like notation.
 Junit5 also provides advanced ways to inject provider-driven data within parametrized tests.
 
