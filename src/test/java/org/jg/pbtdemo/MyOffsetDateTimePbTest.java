@@ -6,7 +6,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Combinators;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Label;
 import net.jqwik.api.Provide;
@@ -51,8 +53,8 @@ public class MyOffsetDateTimePbTest {
   static Arbitrary<MyOffsetDateTime> validMyDate() {
     Arbitrary<OffsetDateTime> offsetDateTimeArbitrary = DateTimes.offsetDateTimes()
         .between(LocalDateTime.now(), LocalDateTime.parse("2022-11-11T11:11:11.123456"));
-
-    return offsetDateTimeArbitrary.map(MyOffsetDateTime::new);
+    Arbitrary<String> idArbitrary = Arbitraries.strings().ofLength(30);
+    return Combinators.combine(idArbitrary, offsetDateTimeArbitrary).as(MyOffsetDateTime::new);
   }
 
 }

@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -19,6 +20,7 @@ import net.jqwik.api.Report;
 import net.jqwik.api.Reporting;
 import net.jqwik.api.statistics.Histogram;
 import net.jqwik.api.statistics.StatisticsReport;
+import net.jqwik.time.api.DateTimes;
 
 class EventWrapperPbTest {
 
@@ -66,14 +68,11 @@ class EventWrapperPbTest {
   Arbitrary<EventWrapper<BusinessData>> validEventWrapper() {
     Arbitrary<String> eventId = Arbitraries.strings().ofMaxLength(40);
     Arbitrary<String> eventType = Arbitraries.strings()
-        .alpha();
-    final Arbitrary<OffsetDateTime> eventTime = Arbitraries
-        .of(List.copyOf(ZoneId.getAvailableZoneIds()))
-        .flatMap(zone -> Arbitraries
-            .longs()
-            .between(1266258398000L, 1897410427000L) // ~ +/- 10 years
-            .map(epochMilli -> Instant.ofEpochMilli(epochMilli))
-            .map(instant -> OffsetDateTime.from(instant.atZone(ZoneId.of(zone)))));
+        .alpha().ofMaxLength(30);
+    final Arbitrary<OffsetDateTime> eventTime = DateTimes
+        .offsetDateTimes()
+        .between(LocalDateTime.of(2021, 1, 01, 01, 01, 01, 001),
+            LocalDateTime.of(2022, 01, 01, 01, 01, 01, 01));
 
     return Combinators.combine(eventId, eventType, eventTime, validBusinessData())
         .as(EventWrapper::new);
