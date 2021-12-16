@@ -10,7 +10,7 @@ class BusinessDataTest {
 
   @Test
   void verifyJsonMapper() throws JsonProcessingException {
-    ObjectMapper om = MyObjectMapperFactory.get();
+    ObjectMapper om = ObjectMapperFactory.get();
     BusinessData businessData = new BusinessData("first", "second");
     final String value = om.writeValueAsString(businessData);
     assertThat(value).isEqualTo("{\"first-value\":\"first\",\"second-value\":\"second\"}");

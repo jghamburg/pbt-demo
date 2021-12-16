@@ -1,15 +1,11 @@
 package org.jg.pbtdemo;
 
-import static org.jg.pbtdemo.EventWrapper.*;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.OffsetDateTime;
 import lombok.Value;
 import lombok.With;
-
+ 
 @Value
 @With
 public class EventWrapper<T> {
@@ -18,15 +14,16 @@ public class EventWrapper<T> {
   public static final String EVENT_TYPE_NAME = "event-type";
   public static final String DATA_NAME = "data";
   public static final String EVENT_TIME_NAME = "event-time";
+
   @JsonProperty(EVENT_ID_NAME)
-  private final String eventId;
+  String eventId;
   @JsonProperty(EVENT_TYPE_NAME)
-  private final String eventType;
+  String eventType;
   // 2020-09-22T11:47:22.634+0000
   @JsonProperty(EVENT_TIME_NAME)
-  private OffsetDateTime eventTime;
+  OffsetDateTime eventTime;
   @JsonProperty(DATA_NAME)
-  private final T data;
+  T data;
 
   @JsonCreator
   public EventWrapper(@JsonProperty(EVENT_ID_NAME) String eventId,
@@ -38,5 +35,4 @@ public class EventWrapper<T> {
     this.eventTime = eventTime;
     this.data = data;
   }
-
 }

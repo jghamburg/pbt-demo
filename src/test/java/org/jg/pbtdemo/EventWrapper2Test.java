@@ -3,12 +3,13 @@ package org.jg.pbtdemo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.OffsetDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class EventWrapperTest {
+class EventWrapper2Test {
 
   public static final String EVENT_ID = "12345-67890";
   public static final String EVENT_TYPE = "context.TYPE";
@@ -58,12 +59,15 @@ class EventWrapperTest {
   @Test
   void validateBackAndForthConversion() throws JsonProcessingException {
     // given: an event wrapper with valid business data
-    EventWrapper<BusinessData> secondWrapper = this.eventWrapper.withData(businessData);
+    EventWrapper<BusinessData> startWrapper = this.eventWrapper.withData(businessData);
     // when: transformation to json is processed
-    String value = mapper.writeValueAsString(secondWrapper);
+    String value = mapper.writeValueAsString(startWrapper);
+    // and: transformation from string (json) back to object
+    TypeReference ref = new TypeReference<EventWrapper<BusinessData>>() {
+    };
     EventWrapper<BusinessData> wrapper = (EventWrapper<BusinessData>) mapper.readValue(value,
-        EventWrapper.class);
+        ref);
     // then: entry object and returned object are equal
-    assertThat(wrapper).isEqualTo(secondWrapper);
+    assertThat(wrapper).isEqualTo(startWrapper);
   }
 }

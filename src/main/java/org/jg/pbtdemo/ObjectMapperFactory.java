@@ -7,7 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-public class MyObjectMapperFactory {
+public class ObjectMapperFactory {
 
   static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSSXXX");
 

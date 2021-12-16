@@ -11,7 +11,7 @@ class MyOffsetDateTimeTest {
 
   @Test
   void verifyDateTimeToJson() throws JsonProcessingException {
-    final ObjectMapper mapper = MyObjectMapperFactory.get();
+    final ObjectMapper mapper = ObjectMapperFactory.get();
     final String id = "b9c85f96-2a07-4f7b-9d21-ca519966d597";
     final MyOffsetDateTime date = new MyOffsetDateTime(
         id, OffsetDateTime.parse("2021-11-23T23:08:59.492234Z"));

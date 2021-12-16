@@ -1,13 +1,16 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.0'
+    id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'idea'
 }
 ext {
     jqwikVersion = '1.6.0'
     jacksonDatatypeVersion = '2.13.0'
     apacheCommanLang3Version = '3.12.0'
-    springDataMongoVersion = '2.6.0'
+    springBootVersion = '2.6.1'
+    springDataMongoVersion = '2.6.1'
+    hibernateValidatorVersion = '7.0.1.Final'
 }
 
 group = 'org.jg'
@@ -29,9 +32,11 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-starter-data-mongodb:${springDataMongoVersion}"
     implementation "org.apache.commons:commons-lang3:${apacheCommanLang3Version}"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeVersion}"
+    implementation "org.hibernate:hibernate-validator:${hibernateValidatorVersion}"
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'

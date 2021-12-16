@@ -9,8 +9,10 @@ import java.time.OffsetDateTime;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Combinators;
+import net.jqwik.api.Example;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Label;
+import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
 import net.jqwik.api.Report;
 import net.jqwik.api.Reporting;
@@ -20,9 +22,9 @@ import net.jqwik.time.api.DateTimes;
 
 public class MyOffsetDateTimePbTest {
 
-  ObjectMapper objectMapper = MyObjectMapperFactory.get();
+  ObjectMapper objectMapper = ObjectMapperFactory.get();
 
-  // @Example
+  @Example
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
   @Label("example MyDate converted to and from json are the same")
@@ -35,7 +37,7 @@ public class MyOffsetDateTimePbTest {
         .isEqualTo(myOffsetDateTime);
   }
 
-  //@Property
+  @Property
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
   @Label("generated MyDate converted to and from json are the same")
