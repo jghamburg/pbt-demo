@@ -23,22 +23,21 @@ output:
 
 ## Getting up
 
-> - Turn off alarm
-> - Get out of bed
+- Turn off alarm
+- Get out of bed
 
 ## Breakfast {data-transition="fade-in slide-out"}
 
-- Eat eggs
-- Drink coffee
-
-```java
+```{.java .number-lines}
 public class Example {
 	private String firstArg;
 	private OffsetDateTime secondTime:
 }
 ```
-
 <small>This sentence will appear smaller.</small>
+
+- Eat eggs
+- Drink coffee
 
 
 # In the evening

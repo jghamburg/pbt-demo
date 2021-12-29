@@ -13,10 +13,12 @@ The associated presentation uses pandoc and reveal.js on basis of markdown docum
 ```bash
 theme=league
 transition=cube
-pandoc -t revealjs -s -o build/myslides.html docs/myslides.md \
-  -V revealjs-url=https://unpkg.com/reveal.js@3.9.2/\
+pandoc --incremental --to=revealjs --standalone \
+  --outputfile=build/myslides.html docs/myslides.md \
+  -V revealjs-url=https://unpkg.com/reveal.js@4.2.1/\
   -V theme=$theme \
   -V transition=$transition
+#
 open build/myslides.html
 ```
 
