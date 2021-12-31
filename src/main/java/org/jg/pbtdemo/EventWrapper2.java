@@ -47,7 +47,31 @@ public class EventWrapper2<T> {
     notNull(data, DATA_NAME);
     this.data = data;
   }
+  public String toJson() throws JsonProcessingException {
+    return ObjectMapperFactory.get().writeValueAsString(this);
+  }
 
+  public static EventWrapper2 fromJson(String jsonString, String dataType) {
+    final String checkedJsonString = notEmpty(notNull(jsonString, "jsonString"), "jsonString");
+    inclusiveBetween(2,2048, checkedJsonString.length());
+    final String checkedDataType = notEmpty(notNull(dataType, "dataType"), "dataType");
+    TypeReference ref;
+    if ("businessdata".equalsIgnoreCase(checkedDataType.toLowerCase())) {
+      ref = new TypeReference<EventWrapper2<BusinessEvent>>() {
+      };
+    } else {
+      ref = new TypeReference<EventWrapper2>() {
+      };
+    }
+    EventWrapper2 eventObject;
+    try {
+      eventObject = (EventWrapper2) ObjectMapperFactory.get().readValue(jsonString, ref);
+    } catch (JsonProcessingException ex) {
+      throw new RuntimeException("Error parsing json object");
+    }
+    return eventObject;
+  }
+/*
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -70,29 +94,5 @@ public class EventWrapper2<T> {
         .append(eventId).append(eventType).append(eventTime)
         .toHashCode();
   }
-
-  public String toJson() throws JsonProcessingException {
-    return ObjectMapperFactory.get().writeValueAsString(this);
-  }
-
-  public static EventWrapper2 fromJson(String jsonString, String dataType) {
-    final String checkedJsonString = notEmpty(notNull(jsonString, "jsonString"), "jsonString");
-    inclusiveBetween(2,2048, checkedJsonString.length());
-    final String checkedDataType = notEmpty(notNull(dataType, "dataType"), "dataType");
-    TypeReference ref;
-    if ("businessdata".equalsIgnoreCase(checkedDataType.toLowerCase())) {
-      ref = new TypeReference<EventWrapper2<BusinessData>>() {
-      };
-    } else {
-      ref = new TypeReference<EventWrapper2>() {
-      };
-    }
-    EventWrapper2 eventObject;
-    try {
-      eventObject = (EventWrapper2) ObjectMapperFactory.get().readValue(jsonString, ref);
-    } catch (JsonProcessingException ex) {
-      throw new RuntimeException("Error parsing json object");
-    }
-    return eventObject;
-  }
+*/
 }

@@ -26,25 +26,12 @@ class EventWrapperPbTest {
   @Property
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
-  @Label("to json transform of BusinessData works just fine.")
-  void anyValidBusinessDataJsonIsSmallerThan255(
-      @ForAll("validBusinessData") BusinessData businessData)
-      throws JsonProcessingException {
-    String value = objectMapper.writeValueAsString(businessData);
-    assertThat(value)
-        .isNotEmpty()
-        .isNotBlank();
-  }
-
-  @Property
-  @Report(Reporting.GENERATED)
-  @StatisticsReport(format = Histogram.class)
   @Label("events transformed to json format and back will be equal.")
   void anyEventDataToJsonAndBackIsEqual(
       @ForAll("validEventWrapper") EventWrapper wrapper
   ) throws JsonProcessingException {
     // when: transforming to JSON and back to object
-    final EventWrapper<BusinessData> eventWrapperAgain =
+    final EventWrapper<BusinessEvent> eventWrapperAgain =
         objectMapper.readValue(objectMapper.writeValueAsString(wrapper),
         EventWrapper.class);
     // then: start and end values are equal
@@ -52,14 +39,14 @@ class EventWrapperPbTest {
   }
 
   @Provide
-  static Arbitrary<BusinessData> validBusinessData() {
+  static Arbitrary<BusinessEvent> validBusinessData() {
     Arbitrary<String> firstValue = Arbitraries.strings();
     Arbitrary<String> secondValue = Arbitraries.strings();
-    return Combinators.combine(firstValue, secondValue).as(BusinessData::new);
+    return Combinators.combine(firstValue, secondValue).as(BusinessEvent::new);
   }
 
   @Provide
-  Arbitrary<EventWrapper<BusinessData>> validEventWrapper() {
+  Arbitrary<EventWrapper<BusinessEvent>> validEventWrapper() {
     Arbitrary<String> eventId = Arbitraries.strings();
     Arbitrary<String> eventType = Arbitraries.strings();
     final Arbitrary<OffsetDateTime> eventTime = DateTimes
@@ -68,5 +55,18 @@ class EventWrapperPbTest {
             LocalDateTime.of(2022, 01, 01, 01, 01, 01, 01));
     return Combinators.combine(eventId, eventType, eventTime, validBusinessData())
         .as(EventWrapper::new);
+  }
+
+  @Property
+  @Report(Reporting.GENERATED)
+  @StatisticsReport(format = Histogram.class)
+  @Label("to json transform of BusinessData works just fine.")
+  void anyValidBusinessDataJsonIsSmallerThan255(
+      @ForAll("validBusinessData") BusinessEvent businessEvent)
+      throws JsonProcessingException {
+    String value = objectMapper.writeValueAsString(businessEvent);
+    assertThat(value)
+        .isNotEmpty()
+        .isNotBlank();
   }
 }

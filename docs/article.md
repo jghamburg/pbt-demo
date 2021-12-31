@@ -1,20 +1,21 @@
 # Property Based Testing - An Evaluation  
 
-In the past I did a lot of unit and integration testing in Java. It was easy to reason about the
-imperative process of services (TODO: What do you mean???). What I was missing was the possibility 
-to reason about rules or properties that my software should follow to conform to the business requirements.
+In the past I did a lot of unit and integration testing in Java. Most of the time I found it easy to reason about the
+imperative process of services within the test structure. What I was missing was the possibility 
+to reason about rules or properties that my software should follow to conform to the business requirements.  
+Something in the line of questions like:  
 
-During reading a lot about functional programming lately I stumbled over the term "Property Based Testing"
-aka PBT.
+* Does the order of processing of an order within my business process make any difference (in mathematics: cummutativity)
+* or is it allowed to process different subsets within a process and later on collect the results (in mathematics: associativity)
+
+During reading a lot about functional programming lately I stumbled over the term "Property Based Testing" aka PBT.
 
 The basic idea:
 
 1. Specify rules or properties that the software under test should follow.
-2. And verify this behavior with generated test data like in the 100 or 1.000 instead of at most ten
-   examples like I used to do.
+2. And verify this behavior with generated test data like in the 100 or 1.000 instead of at most ten examples like I used to do.
 
-As I first asked in my company about experiences on PBT I found that it is still not widely known in
-the Java community.  
+As I first asked in my company about experiences on PBT I found that it is still not widely known in the Java community.  
 And on the other hand I heard things like:
 
 * "I already use specification by example. So why jet another framefork to learn and use?"
@@ -80,7 +81,7 @@ class EventWrapperTest {
     // "yyyy-MM-dd'T'HH:mm:ss[.SSS[SSS]]XXX"
     eventTime = OffsetDateTime.parse("2021-11-21T10:15:01.123Z");
     eventWrapper = new EventWrapper<BusinessData>(EVENT_ID, EVENT_TYPE, eventTime, null);
-    businessData = new BusinessData("firstValue", "secondValue");
+    businessEvent = new BusinessData("firstValue", "secondValue");
   }
 
   @Test
@@ -101,7 +102,7 @@ class EventWrapperTest {
 
 => all green.  
 This was pretty straight forward. And the extra mile with PBT does not seam to give more insights.  
-Let's watch and see.    
+Let's proceed and see.    
 Now lets start to look into PBT with a basic setup.
 
 ```java
@@ -353,7 +354,7 @@ Things that came up during the experiments:
 
 This approach is definitly not for the faint of heart.  
 You have to think hard to find behavior/properties that represent your system on the one hand.  
-And it is highly challenging to describe data generator providers to prove specific properties.   
+And it is highly challenging to describe data generators to prove specific properties.   
 
 In my experience PBT will be a good solution if you find structures and algorithms where your gut feeling
 starts to moan and the existing tests do not provide sufficient security and understanding of the system.
@@ -371,7 +372,8 @@ At the end
 ## Resources
 
 For all the examples I use jqwik provided by Johannes Link, who is well known in the java testing
-community. The sample project with the code and my article you can find on 
+community.  
+The sample project with the code and my article you can find on 
 [github jghamburg/pbt-demo][github jghamburg/pbt-demo].
 
 __Articles about PBT and usage__:
@@ -392,23 +394,24 @@ __The Framework jqwik and Exensions__:
 * [jqwik Users Guide][jqwik Users Guide]
 * [jqwik-spring: extension to support testing of Spring-Boot][jqwik-spring: extension to support testing of Spring-Boot]
   -> spring boot support: (example):
-* [jqwik-spring-boot-gradle example][jqwik-spring-boot-gradle example]
-  <* [PBT Workshop Handout by Johannes Link](https://johanneslink.net/downloads/pbt-workshop-english.pdf)
+* [jqwik-spring-boot-gradle example by Johannes Link][jqwik-spring-boot-gradle example]
+  -> how to PBT a rest controller 
+* [PBT Workshop Handout by Johannes Link](https://johanneslink.net/downloads/pbt-workshop-english.pdf)
 
-__Interesting series about testing__:
+__Interesting short series about testing__:
 
-* [hashnode1](https://sergiosastre.hashnode.dev/multiplying-the-quality-of-your-unit-tests-part-1)
-* [hashnode2](https://sergiosastre.hashnode.dev/multiplying-the-quality-of-your-unit-tests-part-2)
+* [Multiplying the Quality of your Tests - with Parameterized Tests - Sergio Sastre Florez - 2021](https://sergiosastre.hashnode.dev/multiplying-the-quality-of-your-unit-tests-part-1)
+* [Multiplying the Quality of your Tests - with Property based Tests - Sergio Sastre Florez - 2021](https://sergiosastre.hashnode.dev/multiplying-the-quality-of-your-unit-tests-part-2)
   Pros and Cons (kotlin code examples)
 
-[arothuis](https://arothuis.nl/posts/property-based-testing-rock-paper-scissors/)
+[Testing General Rules through Property-Based Tests - A. Rothuis - 2020](https://arothuis.nl/posts/property-based-testing-rock-paper-scissors/)
 -> nice appetizer - more academic approach
 
 __Examples based on json date conversion__:  
 
 These articles actually triggered my ideas for this project.
 
-* [blogspot](https://aredko.blogspot.com/2020/02/)
+* [How PBT helps me to be a better developer - Andriy Redko - 2020](https://aredko.blogspot.com/2020/02/)
 * [Differences Between ZonedDateTime and OffsetDateTime | Baeldung](https://www.baeldung.com/java-zoneddatetime-offsetdatetime)
   Recommendation: Use OffsetDateTime for database use.
 * [Why “Always use UTC” is bad advice](https://engineering.q42.nl/why-always-use-utc-is-bad-advice/)

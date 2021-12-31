@@ -19,26 +19,26 @@ import net.jqwik.api.statistics.Histogram;
 import net.jqwik.api.statistics.StatisticsReport;
 import net.jqwik.time.api.DateTimes;
 
-class EventWrapperWithRestrictionsPbTest {
+class EventWrapper2PbTest {
 
   @Property
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
   @Label("events transformed to json format and back will be equal.")
   void anyEventDataToJsonAndBackIsEqual(
-      @ForAll("validEventWrapper") @Valid EventWrapper2<BusinessData> wrapper
+      @ForAll("validEventWrapper") @Valid EventWrapper2<BusinessEvent> wrapper
   ) throws JsonProcessingException {
     // Assume.that(!wrapper.getEventId().isEmpty());
     // when: transforming to JSON
     String value = wrapper.toJson();
     // and: back to object
-    EventWrapper2<BusinessData> eventWrapperAgain = wrapper.fromJson(value, "BusinessData");
+    EventWrapper2<BusinessEvent> eventWrapperAgain = wrapper.fromJson(value, "BusinessData");
     // then: start and end values are equal
     assertThat(eventWrapperAgain).isEqualTo(wrapper);
   }
 
   @Provide
-  static Arbitrary<BusinessData> validBusinessData() {
+  static Arbitrary<BusinessEvent> validBusinessData() {
     Arbitrary<String> firstValue = Arbitraries.strings()
         .withCharRange('a', 'z')
         .ofMinLength(2).ofMaxLength(10)
@@ -46,11 +46,11 @@ class EventWrapperWithRestrictionsPbTest {
     Arbitrary<String> secondValue = Arbitraries.strings()
         .withCharRange('0', '9')
         .ofMinLength(2).ofMaxLength(20);
-    return Combinators.combine(firstValue, secondValue).as(BusinessData::new);
+    return Combinators.combine(firstValue, secondValue).as(BusinessEvent::new);
   }
 
   @Provide
-  Arbitrary<EventWrapper2<BusinessData>> validEventWrapper() {
+  Arbitrary<EventWrapper2<BusinessEvent>> validEventWrapper() {
     Arbitrary<String> eventId = Arbitraries.strings().ofMinLength(1)
         .ofLength(40)
         .excludeChars(' ');
@@ -62,6 +62,6 @@ class EventWrapperWithRestrictionsPbTest {
             LocalDateTime.of(2022, 01, 01, 01, 01, 01, 01));
 
     return Combinators.combine(eventId, eventType, eventTime, validBusinessData())
-        .as(EventWrapper2<BusinessData>::new);
+        .as(EventWrapper2<BusinessEvent>::new);
   }
 }
