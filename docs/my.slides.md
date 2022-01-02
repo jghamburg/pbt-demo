@@ -4,8 +4,7 @@ subtitle: "An Experiment for good"
 author: Jörg Gellien
 date: January 22, 2022
 titlepage-note: |
-  This is a the note that goes on the title page. This talk is to be 
-  given at OTTO showcase.
+  This is a the note that goes on the title page. This talk is to be given at OTTO showcase.
 keywords: [nothing, nothingness]
 abstract: |
   This is the abstract.
@@ -50,7 +49,7 @@ I am sure about this point.
 
 ## The Example Class  
 
-```{.java .number-lines}
+```java
 @Value
 @With
 public class EventWrapper<T> {
@@ -63,7 +62,7 @@ public class EventWrapper<T> {
 
 and the business event providing deeper.
 
-```{.java .number-lines}
+```java
 @Value
 public class BusinessEvent {
   String firstValue;
@@ -79,10 +78,6 @@ public class BusinessEvent {
 
 ## Why this Example  
 
-::: {.warning}
-This is a warning!
-:::
-
 * In recent years I developed services based on microservice architecture.  
 * The communication patterns is based on messaging infrastructure using JSON messages.  
 * This pattern is reasonable well known in the audience - easy to follow
@@ -91,13 +86,114 @@ This is a warning!
 
 ## The Experiences so far  {data-transition="convex"}
 
-- Eat spaghetti
-- Drink wine
+* There seems to be a problem with the provided type BusinessEvent.
+* It found counter example on the first attempt - nice
+* The counter example looks quite nicely reduced with interesting values I never planed to use in my production code
+* What is this about Shrunken example and Original example?
+
+## The Shrinking Effect  
+
+Like in a lot of other disciplines PBT shines when finding counter examples that reject the
+assertion of a property. PBT introduces the concept of shrinking trying to find the simplest example
+to reproduce the error. And this can ease up debugging and fixing the error a lot. 
 
 # Demo Improved  
 
-## Going to sleep {data-transition="concave"}
+## What else did I found out {data-transition="concave"}
 
-- Get in bed
-- Count sheep
+* With the changes in place there is just one thing left. Comparing the OffsetDateTime correctly.  
+This problem never occurred to me in the first place and was not discovered with my examples.  
+
+* Now we have verified the behavior or property with 1000 generated testdata. And on every new run the 
+next randomly generated testdata will be used - until a counter example is found.  
+
+# Patterns that are Designed for PBT  
+
+## Inverse Functions
+
+There are a lot of functions that have a reverse. E.g. encode/decode JSON. So basically for all
+inputs
+
+```text
+ForAll x:encode(decode(x))==x  
+```
+
+## Fuzzying  
+
+Code should always be written that it will behave nicely. It should not spit into your face only
+because unexpected data examples are feed into your services under test. As a few examples you could
+check for:
+
+* No exceptions occur, at least no unexpected ones - wrong data is identified on entering the
+  service udner test.
+* No 5xx return codes in http requests, maybe you even require 2xx all the time
+* All return values are valid
+
+## Test Oracle
+
+On the other hand there are a lot of functions and algorithms where you want to optimize our e.g.
+old one to improve speed. So you have to verify that
+
+```text
+ForAll x:old(x) == new(x)
+```
+
+This kind of verification is called test oracle.  
+There are a few sources where the alternatives can come from:
+
+* Simple and slow versus complicated but fast
+* Self-made versus commercial
+* Old (pre-refactoring) versus new (post-refactoring)
+
+# Lessons Learned  
+
+## What did I learn by diving into PBT?
+
+  If the only tool you have at hand is a hammer every problem is a nail. 
+    Unknown - at least to me
+
+* Think outside the box. Find ways to question your system under test to get a deeper insight of the functioning of the system.  
+
+* On the other hand exploring new areas might lead to new ways of thinking and progressing in the
+realm of problem-solving. You can extend your repertoire/portfolio of tools to use for solving
+different kind of problems/challenges.
+
+## Things that came up during the experiments  
+
+* am I restricting my input data correctly?
+* will my system crash under some allowed but bizzar input that never would come to my mind. 
+  - Ever tried to use chinese input characters?
+
+
+* This approach is definitly not for the faint of heart.  
+You have to think hard to find behavior/properties that represent your system on the one hand.  
+And it is highly challenging to describe data generators to prove specific properties.   
+
+::: notes  
+* PBT will be a good solution if you find structures and algorithms where your gut feeling
+starts to moan and the existing tests do not provide sufficient security and understanding of the system.
+
+* Myself I was quite astonished how many ideas and insights I generated only by providing some unexpected input data.  
+:::
+
+# At the End  
+
+## Exploring PBT led to
+
+* a lot of fun
+* a cool way to generate test data
+* and a new tool for my belt
+
+## Questions
+
+Any Questions or Remarks ?
+
+You are welcome
+
+## References  
+
+For all the examples I use jqwik provided by Johannes Link, who is well known in the java testing community.  
+
+The sample project with the code and my article with a lot more references you can find on 
+[github jghamburg/pbt-demo][github jghamburg/pbt-demo].  
 

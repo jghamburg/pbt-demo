@@ -5,7 +5,7 @@ imperative process of services within the test structure. What I was missing was
 to reason about rules or properties that my software should follow to conform to the business requirements.  
 Something in the line of questions like:  
 
-* Does the order of processing of an order within my business process make any difference (in mathematics: cummutativity)
+* Does the order of processing of an order within my business process make any difference (in mathematics: commutativity)
 * or is it allowed to process different subsets within a process and later on collect the results (in mathematics: associativity)
 
 During reading a lot about functional programming lately I stumbled over the term "Property Based Testing" aka PBT.
@@ -28,14 +28,14 @@ the ideas of PBT.
 
 ## My Framework of Choice to Explore PBT
 
-I selected the famework [jqwik][jqwik The Framework] maintained by Johannes Link.  
+I selected the framework [jqwik][jqwik The Framework] maintained by Johannes Link.  
 In contrast to the older and more widely used framework [JUnit-quickcheck][JUnit QuickCheck] which
 is based on JUnit 4 jqwik is integrated into the JUnit5 platform concept and is implemented as test 
 engine. In my opinion this is a more future prove way to proceed.
 
 ## Examples
 
-In a microservice driven world there is a lot of communication going on between the different
+In a microservice-driven world there is a lot of communication going on between the different
 systems and components. And perhaps you use events to trigger actions. And these events are
 represented in format JSON as they were sent back and forth between components.
 
@@ -178,7 +178,7 @@ Original Sample
 
 A few observations on the output:
 
-* There seems to be a problem with the provided type BusinessData.
+* There seems to be a problem with the provided type BusinessEvent.
 * It found counter example on the first attempt - nice
 * The counter example looks quite nicely reduced with interesting values I never planed to use in my production code
 * What is this about Shrunken example (7 steps) and Original example?
@@ -321,12 +321,6 @@ There are a few sources where the alternatives can come from:
 * Self-made versus commercial
 * Old (pre-refactoring) versus new (post-refactoring)
 
-### Resources for Deeper insight
-
-* [Patterns to Identify Properties by Johannes Link 2018](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties)
-* [Property-based Testing Patterns by Sanj 2016](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html)
-    - great summary of usage patterns where PBT will shine using scalacheck and nice grafics.
-
 ## Lessons Learned
 
 ### But why yet another testing framework?
@@ -336,9 +330,9 @@ and its engine extensions.
 
 ### What did I learn by diving into PBT?
 
-Think outside the box. Find ways to question your system under test to get a deeper insight of
+* Think outside the box. Find ways to question your system under test to get a deeper insight of
 the functioning of the system.  
-On the other hand exploring new areas might lead to new ways of thinking and progressing in the
+* On the other hand exploring new areas might lead to new ways of thinking and progressing in the
 realm of problem-solving. You can extend your repertoire/portfolio of tools to use for solving
 different kind of problems/challenges.
 
@@ -350,7 +344,6 @@ Things that came up during the experiments:
 * am I restricting my input data correctly?
 * will my system crash under some allowed but bizzar input that never would come to my mind. 
   - Ever tried to use chinese input characters?
-
 
 This approach is definitly not for the faint of heart.  
 You have to think hard to find behavior/properties that represent your system on the one hand.  
@@ -401,7 +394,6 @@ __The Framework jqwik and Exensions__:
 __Interesting short series about testing__:
 
 * [Multiplying the Quality of your Tests - with Parameterized Tests - Sergio Sastre Florez - 2021](https://sergiosastre.hashnode.dev/multiplying-the-quality-of-your-unit-tests-part-1)
-* [Multiplying the Quality of your Tests - with Property based Tests - Sergio Sastre Florez - 2021](https://sergiosastre.hashnode.dev/multiplying-the-quality-of-your-unit-tests-part-2)
   Pros and Cons (kotlin code examples)
 
 [Testing General Rules through Property-Based Tests - A. Rothuis - 2020](https://arothuis.nl/posts/property-based-testing-rock-paper-scissors/)

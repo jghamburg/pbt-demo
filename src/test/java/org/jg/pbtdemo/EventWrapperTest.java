@@ -21,7 +21,6 @@ class EventWrapperTest {
   void setUp() {
 
     mapper = ObjectMapperFactory.get();
-    // "yyyy-MM-dd'T'HH:mm:ss[.SSS[SSS]]XXX"
     eventTime = OffsetDateTime.parse("2021-11-21T10:15:01.123Z");
     eventWrapper = new EventWrapper<BusinessEvent>(EVENT_ID, EVENT_TYPE, eventTime, null);
     businessEvent = new BusinessEvent("firstValue", "secondValue");
