@@ -120,9 +120,7 @@ ForAll x:encode(decode(x))==x
 
 ## Fuzzying  
 
-Code should always be written that it will behave nicely. It should not spit into your face only
-because unexpected data examples are feed into your services under test. As a few examples you could
-check for:
+Code should always be written that it will behave nicely. It should not spit into your face only because unexpected data examples. As examples you could check for:
 
 * No exceptions occur, at least no unexpected ones - wrong data is identified on entering the
   service udner test.
@@ -131,8 +129,7 @@ check for:
 
 ## Test Oracle
 
-On the other hand there are a lot of functions and algorithms where you want to optimize our e.g.
-old one to improve speed. So you have to verify that
+There are a lot of functions and algorithms where you want to optimize. So you have to verify that
 
 ```text
 ForAll x:old(x) == new(x)
@@ -149,14 +146,12 @@ There are a few sources where the alternatives can come from:
 
 ## What did I learn by diving into PBT?
 
-  If the only tool you have at hand is a hammer every problem is a nail. 
-    Unknown - at least to me
+> If the only tool you have at hand is a hammer every problem is a nail. 
+>> Unknown - at least to me
 
-* Think outside the box. Find ways to question your system under test to get a deeper insight of the functioning of the system.  
+* Think outside the box. Get a deeper insight of the functioning of the system.  
 
-* On the other hand exploring new areas might lead to new ways of thinking and progressing in the
-realm of problem-solving. You can extend your repertoire/portfolio of tools to use for solving
-different kind of problems/challenges.
+* On the other hand exploring new areas might lead to new ways of thinking and progressing in the realm of problem-solving. You can extend your repertoire of tools to use for solving different kind of challenges.
 
 ## Things that came up during the experiments  
 
@@ -165,9 +160,9 @@ different kind of problems/challenges.
   - Ever tried to use chinese input characters?
 
 
-* This approach is definitly not for the faint of heart.  
-You have to think hard to find behavior/properties that represent your system on the one hand.  
-And it is highly challenging to describe data generators to prove specific properties.   
+* Definitly not for the faint of heart.  
+You have to think hard to find properties that represent your system.  
+And it can be challenging to describe data generators to prove specific properties.   
 
 ::: notes  
 * PBT will be a good solution if you find structures and algorithms where your gut feeling
@@ -195,5 +190,6 @@ You are welcome
 For all the examples I use jqwik provided by Johannes Link, who is well known in the java testing community.  
 
 The sample project with the code and my article with a lot more references you can find on 
-[github jghamburg/pbt-demo][github jghamburg/pbt-demo].  
+[github jghamburg/pbt-demo](https://github.com/jghamburg/pbt-demo).  
+The associated article is published on [jghamburg.github.io](https://jghamburg.github.io/2022/01/02/001-java-property-based-testing.html)
 
