@@ -31,15 +31,15 @@ class EventWrapperPbTest {
       @ForAll("validEventWrapper") EventWrapper wrapper
   ) throws JsonProcessingException {
     // when: transforming to JSON and back to object
-    final EventWrapper<BusinessEvent> eventWrapperAgain =
+    final EventWrapper<BusinessEvent> actualEventWrapper =
         objectMapper.readValue(objectMapper.writeValueAsString(wrapper),
         EventWrapper.class);
     // then: start and end values are equal
-    assertThat(eventWrapperAgain).isEqualTo(wrapper);
+    assertThat(actualEventWrapper).isEqualTo(wrapper);
   }
 
   @Provide
-  static Arbitrary<BusinessEvent> validBusinessData() {
+  static Arbitrary<BusinessEvent> validBusinessEvent() {
     Arbitrary<String> firstValue = Arbitraries.strings();
     Arbitrary<String> secondValue = Arbitraries.strings();
     return Combinators.combine(firstValue, secondValue).as(BusinessEvent::new);
@@ -53,7 +53,7 @@ class EventWrapperPbTest {
         .offsetDateTimes()
         .between(LocalDateTime.of(2021, 1, 01, 01, 01, 01, 001),
             LocalDateTime.of(2022, 01, 01, 01, 01, 01, 01));
-    return Combinators.combine(eventId, eventType, eventTime, validBusinessData())
+    return Combinators.combine(eventId, eventType, eventTime, validBusinessEvent())
         .as(EventWrapper::new);
   }
 
@@ -61,8 +61,8 @@ class EventWrapperPbTest {
   @Report(Reporting.GENERATED)
   @StatisticsReport(format = Histogram.class)
   @Label("to json transform of BusinessData works just fine.")
-  void anyValidBusinessDataJsonIsSmallerThan255(
-      @ForAll("validBusinessData") BusinessEvent businessEvent)
+  void anyValidBusinessEvent(
+      @ForAll("validBusinessEvent") BusinessEvent businessEvent)
       throws JsonProcessingException {
     String value = objectMapper.writeValueAsString(businessEvent);
     assertThat(value)

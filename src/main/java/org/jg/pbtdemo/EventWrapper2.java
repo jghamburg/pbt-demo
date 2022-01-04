@@ -71,7 +71,6 @@ public class EventWrapper2<T> {
     }
     return eventObject;
   }
-/*
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -94,5 +93,5 @@ public class EventWrapper2<T> {
         .append(eventId).append(eventType).append(eventTime)
         .toHashCode();
   }
-*/
+
 }

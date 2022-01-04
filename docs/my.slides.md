@@ -10,10 +10,10 @@ abstract: |
   This is the abstract.
 
   It consists of two paragraphs.
-fontsize: 12pt
+fontsize: 17pt
 output:
   revealjs::revealjs_presentation:
-    theme: sky
+    theme: moon
     highlight: coderay
     center: false
     transition: fade
@@ -25,7 +25,7 @@ output:
 
 # Property based Testing aka PBT
 
-## Motivation {data-transition="zoom" data-background=#f00f0a}
+## Motivation {data-transition="zoom" data-background=#008811}
 
 - a lot of experience in writing example based tests
   * most of the time easy to reason about
@@ -82,7 +82,7 @@ public class BusinessEvent {
 * The communication patterns is based on messaging infrastructure using JSON messages.  
 * This pattern is reasonable well known in the audience - easy to follow
 
-# The Demo {data-background-iframe="https://otto.de"}
+# The Demo 
 
 ## The Experiences so far  {data-transition="convex"}
 
@@ -108,6 +108,9 @@ This problem never occurred to me in the first place and was not discovered with
 next randomly generated testdata will be used - until a counter example is found.  
 
 # Patterns that are Designed for PBT  
+
+Based on ideas from Johannes Link paper  
+[Patterns to Identify Properties by Johannes Link 2018](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties)
 
 ## Inverse Functions
 
@@ -146,8 +149,9 @@ There are a few sources where the alternatives can come from:
 
 ## What did I learn by diving into PBT?
 
-> If the only tool you have at hand is a hammer every problem is a nail. 
->> Unknown - at least to me
+>
+>If the only tool you have at hand is a hammer every problem is a nail.  
+>Unknown - at least to me
 
 * Think outside the box. Get a deeper insight of the functioning of the system.  
 

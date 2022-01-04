@@ -11,11 +11,12 @@ Using the fantastic framework jqwik from Johannes Link and some other great refe
 The associated presentation uses pandoc and reveal.js on basis of markdown documentation.  
 
 ```bash
-pandoc --incremental --to=revealjs --standalone \
+pandoc --incremental --to=revealjs --standalone  --slide-level 2 \
   --output=build/my.slides.html docs/my.slides.md \
   -V revealjs-url=https://unpkg.com/reveal.js@4.2.1/\
-  -V theme=cube \
-  -V transition=league 
+  -V theme=moon \
+  -V transition=league \
+  -V slideNumber=true
 #
 open build/my.slides.html
 ```

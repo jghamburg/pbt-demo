@@ -32,9 +32,9 @@ class EventWrapper2PbTest {
     // when: transforming to JSON
     String value = wrapper.toJson();
     // and: back to object
-    EventWrapper2<BusinessEvent> eventWrapperAgain = wrapper.fromJson(value, "BusinessData");
+    EventWrapper2<BusinessEvent> actualEventWrapper = wrapper.fromJson(value, "BusinessData");
     // then: start and end values are equal
-    assertThat(eventWrapperAgain).isEqualTo(wrapper);
+    assertThat(actualEventWrapper).isEqualTo(wrapper);
   }
 
   @Provide
