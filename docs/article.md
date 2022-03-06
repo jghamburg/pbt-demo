@@ -148,7 +148,7 @@ Basically first of all a red test.
 
 looks reasonable to me. 
 
-```log
+```text
 timestamp = 2021-12-16T19:39:55.322492, EventWrapperPbTest:events transformed to json format and back will be equal. = 
   org.opentest4j.AssertionFailedError:
     expected: EventWrapper(eventId=, eventType=, eventTime=2021-01-01T01:01:01.000000001Z, data=BusinessData(firstValue=, secondValue=))
@@ -251,7 +251,7 @@ public class EventWrapper2<T> {
 With these changes in place there is just one thing left. Comparing the OffsetDateTime correctly.  
 The error:  
 
-```log
+```text
   org.opentest4j.AssertionFailedError:
     expected: EventWrapper2(eventId=    , eventType=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, eventTime=2021-01-01T01:01:01.000000001+00:15, data=BusinessData(firstValue=AA, secondValue=00))
      but was: EventWrapper2(eventId=    , eventType=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, eventTime=2021-01-01T00:46:01.000000001Z, data=BusinessData(firstValue=AA, secondValue=00))
@@ -266,7 +266,7 @@ next randomly generated testdata will be used - until a counter example is found
 (seed = 4143122016923828875    | random seed to reproduce generated values) This seed will change on 
 every new run.
 
-```log
+```text
 timestamp = 2021-12-16T20:46:12.921615, EventWrapperWithRestrictionsPbTest:events transformed to json format and back will be equal. = 
                               |-------------------jqwik-------------------
 tries = 1000                  | # of calls to property
@@ -283,7 +283,8 @@ seed = 4143122016923828875    | random seed to reproduce generated values
 ## Patterns that are designated for PBT
 
 There are some patterns that come in handy if you are not sure if your problem is a nail.  
-So I curated three of these patterns just as an appetizer.
+So I curated three of these patterns just as an appetizer.  
+The content is based on [Patterns to Identify Properties by Johannes Link][Patterns to Identify Properties]
 
 ### Inverse Functions
 
@@ -320,6 +321,8 @@ There are a few sources where the alternatives can come from:
 * Simple and slow versus complicated but fast
 * Self-made versus commercial
 * Old (pre-refactoring) versus new (post-refactoring)
+
+For a deeper insight on this topic read [How to Specify it! - in Java][How to Specify it!] and its additional references.  
 
 ## Lessons Learned
 
@@ -379,8 +382,8 @@ __Articles about PBT and usage__:
 
 __When to use it__:  
 
-* [How to Specify it! In Java! by Johannes Link - rewrite from a John Huges paper and presentation](https://johanneslink.net/how-to-specify-it/)
-* [Patterns to Identify Properties by Johannes Link 2018](https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties)
+* [How to Specify it! In Java! by Johannes Link - rewrite from a John Huges paper and presentation][How to Specify it!]
+* [Patterns to Identify Properties by Johannes Link 2018][Patterns to Identify Properties]
 * [Property-based Testing Patterns by Sanj 2016](https://blog.ssanj.net/posts/2016-06-26-property-based-testing-patterns.html)
 
 __The Framework jqwik and Exensions__:  
@@ -416,6 +419,8 @@ These articles actually triggered my ideas for this project.
 
 
 [github jghamburg/pbt-demo]: https://github.com/jghamburg/pbt-demo
+[Patterns to Identify Properties]: https://blog.johanneslink.net/2018/07/16/patterns-to-find-properties
+[How to Specify it!]: https://johanneslink.net/how-to-specify-it/
 [jqwik The Framework]: https://jqwik.net
 [jqwik Users Guide]: https://jqwik.net/docs/current/user-guide.html
 [jqwik-spring: extension to support testing of Spring-Boot]: https://github.com/jlink/jqwik-spring

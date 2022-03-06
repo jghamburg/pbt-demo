@@ -1,6 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.2'
+    id 'org.springframework.boot' version '2.6.4'
     id 'java'
+    id 'jvm-test-suite'
+    id 'test-report-aggregation'
     id 'idea'
     id 'com.github.ben-manes.versions' version '0.39.0'
 }
@@ -8,9 +10,10 @@ ext {
     jqwikVersion = '1.6.2'
     jacksonDatatypeVersion = '2.13.0'
     apacheCommanLang3Version = '3.12.0'
-    springBootVersion = '2.6.2'
-    springDataMongoVersion = '2.6.2'
+    springBootVersion = '2.6.3'
+    springDataMongoVersion = '2.6.4'
     hibernateValidatorVersion = '7.0.1.Final'
+    lombokVersion = '1.18.22'
 }
 
 group = 'org.jg'
@@ -31,15 +34,15 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.6.2'
-    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-starter-data-mongodb:${springDataMongoVersion}"
     implementation "org.apache.commons:commons-lang3:${apacheCommanLang3Version}"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeVersion}"
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // aggregate jqwik dependency
     testImplementation "net.jqwik:jqwik:${jqwikVersion}"
@@ -50,12 +53,29 @@ compileTestJava {
     // To enable argument names in reporting and debugging
     options.compilerArgs += '-parameters'
 }
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
 
-test {
-    useJUnitPlatform {
-        includeEngines 'jqwik', 'junit-jupiter'
-        // includeTags 'fast', 'medium'
-        // excludeTags 'slow'
+        integrationTest(JvmTestSuite) {
+            dependencies {
+                implementation project
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
     }
+}
+
+tasks.named('check') {
+    dependsOn(testing.suites.integrationTest)
 }
 
