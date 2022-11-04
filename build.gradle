@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.4'
+    id 'org.springframework.boot' version '2.7.5'
     id 'java'
     id 'jvm-test-suite'
     id 'test-report-aggregation'
@@ -7,13 +7,13 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.39.0'
 }
 ext {
-    jqwikVersion = '1.6.2'
-    jacksonDatatypeVersion = '2.13.0'
+    jqwikVersion = '1.7.0'
+    jacksonDatatypeVersion = '2.13.4'
     apacheCommanLang3Version = '3.12.0'
-    springBootVersion = '2.6.3'
-    springDataMongoVersion = '2.6.4'
+    springBootVersion = '2.7.5'
+    springDataMongoVersion = '2.7.5'
     hibernateValidatorVersion = '7.0.1.Final'
-    lombokVersion = '1.18.22'
+    lombokVersion = '1.18.24'
 }
 
 group = 'org.jg'

@@ -32,7 +32,9 @@ public class MyOffsetDateTime {
       return false;
     }
     MyOffsetDateTime that = (MyOffsetDateTime) obj;
-    return Objects.equals(id, that.id) && offset.isEqual(that.offset);
+    return Objects.equals(id, that.id)
+        // && offset.isEqual(that.offset)
+        ;
   }
 
   @Override

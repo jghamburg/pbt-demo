@@ -34,6 +34,10 @@ pdfnup build/my.slides.md.handout.pdf --nup 1x2 --no-landscape --keepinfo \
   --suffix "nup"
 ```
 
+## Presentation - Second Take
+As a second take I experimented with [iA Presenter beta](https://ia.net/presenter) an easy to use presentation software based on Markdown. This is from the makers of the excellent iA Writer.  
+
+You find the base presentation and some generated output in the [docs folder](./docs/).  
 ## Open Issues - Next Research Steps  
 
 As this is just a starting point in my journey to get a good grasp of PBT here are some ideas to explore  
